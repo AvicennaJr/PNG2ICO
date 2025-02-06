@@ -239,7 +239,7 @@ func writeICO(w io.Writer, img image.Image) error {
 		Planes:   1,
 		BitCount: 32,
 		Size:     uint32(pngBuf.Len()),
-		Offset:   uint32(binary.Size(header) + binary.Size(directory)),
+		Offset:   uint32(binary.Size(header) + binary.Size(icoDirectory{})),
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, &directory); err != nil {
