@@ -91,7 +91,7 @@ func handleInterrupt() {
 }
 
 func printUsage() {
-	fmt.Println("Usage: ico-converter [OPTIONS] <input-path>")
+	fmt.Println("Usage: png2ico [OPTIONS] <input-path>")
 	fmt.Println("Options:")
 	flag.PrintDefaults()
 }
