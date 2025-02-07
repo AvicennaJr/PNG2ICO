@@ -15,9 +15,9 @@ png2ico image.png
 
 ### Flags
 
-- `-o`, `--output`: Specify the output directory for the .ico files.
-- `-f`, `--force`: Overwrite existing files.
-- `-v`, `--verbose`: Enable verbose output.
+- `-o`, `--output`  : Specify the output directory for the .ico files.
+- `-f`, `--force`   : Overwrite existing files.
+- `-v`, `--verbose` : Enable verbose output.
 
 ### Examples
 
