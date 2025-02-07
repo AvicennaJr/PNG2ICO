@@ -9,10 +9,10 @@ import (
 	"image/png"
 	"io"
 	"os"
-	"os/signal"
 	"path/filepath"
 	"strings"
 
+	"github.com/AvicennaJr/png-to-ico/toolkit"
 	"github.com/cheggaaa/pb/v3"
 	"github.com/fatih/color"
 )
@@ -50,12 +50,12 @@ func init() {
 }
 
 func main() {
-	handleInterrupt()
+	toolkit.HandleInterrupt()
 	flag.Parse()
 	args := flag.Args()
 
 	if len(args) < 1 {
-		printUsage()
+		toolkit.PrintUsage()
 		return
 	}
 
@@ -80,21 +80,7 @@ func main() {
 	}
 }
 
-func handleInterrupt() {
-	signalChan := make(chan os.Signal, 1)
-	signal.Notify(signalChan, os.Interrupt)
-	go func() {
-		<-signalChan
-		color.Yellow("\nOperation cancelled by user")
-		os.Exit(1)
-	}()
-}
 
-func printUsage() {
-	fmt.Println("Usage: png2ico [OPTIONS] <input-path>")
-	fmt.Println("Options:")
-	flag.PrintDefaults()
-}
 
 func processDirectory(inputPath string) {
 	var pngFiles []string
@@ -174,7 +160,7 @@ func convertToICO(inputPath string) error {
 		return err
 	}
 
-	if !force && fileExists(outputPath) {
+	if !force && toolkit.FileExists(outputPath) {
 		return fmt.Errorf("output file exists: %s (use -f to overwrite)", outputPath)
 	}
 
@@ -207,11 +193,6 @@ func constructOutputPath(inputPath string) (string, error) {
 		return filepath.Join(outputDir, outputFile), nil
 	}
 	return filepath.Join(filepath.Dir(inputPath), outputFile), nil
-}
-
-func fileExists(path string) bool {
-	_, err := os.Stat(path)
-	return !os.IsNotExist(err)
 }
 
 func writeICO(w io.Writer, img image.Image) error {
