@@ -80,21 +80,7 @@ func main() {
 	}
 }
 
-func handleInterrupt() {
-	signalChan := make(chan os.Signal, 1)
-	signal.Notify(signalChan, os.Interrupt)
-	go func() {
-		<-signalChan
-		color.Yellow("\nOperation cancelled by user")
-		os.Exit(1)
-	}()
-}
 
-func printUsage() {
-	fmt.Println("Usage: png2ico [OPTIONS] <input-path>")
-	fmt.Println("Options:")
-	flag.PrintDefaults()
-}
 
 func processDirectory(inputPath string) {
 	var pngFiles []string
