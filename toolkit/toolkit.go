@@ -4,15 +4,16 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/signal"
 
 	"github.com/fatih/color"
 )
-func fileExists(path string) bool {
+func FileExists(path string) bool {
 	_, err := os.Stat(path)
 	return !os.IsNotExist(err)
 }
 
-func handleInterrupt() {
+func HandleInterrupt() {
 	signalChan := make(chan os.Signal, 1)
 	signal.Notify(signalChan, os.Interrupt)
 	go func() {
@@ -22,7 +23,7 @@ func handleInterrupt() {
 	}()
 }
 
-func printUsage() {
+func PrintUsage() {
 	fmt.Println("Usage: png2ico [OPTIONS] <input-path>")
 	fmt.Println("Options:")
 	flag.PrintDefaults()
